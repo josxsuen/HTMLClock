@@ -1,0 +1,31 @@
+body
+{
+    padding: 50px 0;
+    background-color: #2fb5c6;
+    color: #fff;
+    font-family: sans-serif;
+    letter-spacing: -1px;
+    text-align: center;
+}
+
+div
+{
+    margin: 0 auto;
+    padding: 10px;
+    width: 600px;
+    background-color: rgba(255,255,255,0.2);
+    border-bottom: 10px solid rgba(0,0,0,0.1);
+}
+
+h1
+{
+    font-size: 36px;
+    font-weight: normal;
+}
+
+.clock
+{
+    margin: 0;
+    font-size: 96px;
+    font-weight: bold;
+}
