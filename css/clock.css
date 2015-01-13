@@ -4,7 +4,6 @@ body
     background-color: #2fb5c6;
     color: #fff;
     font-family: sans-serif;
-    letter-spacing: -1px;
     text-align: center;
 }
 
@@ -21,6 +20,7 @@ h1
 {
     font-size: 36px;
     font-weight: normal;
+    letter-spacing: -1px;
 }
 
 .clock
@@ -28,4 +28,5 @@ h1
     margin: 0;
     font-size: 96px;
     font-weight: bold;
+    letter-spacing: -1px;
 }
