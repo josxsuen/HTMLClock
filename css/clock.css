@@ -7,10 +7,10 @@ body
     text-align: center;
 }
 
-div
+.box
 {
     margin: 0 auto;
-    padding: 10px;
+    padding: 40px 20px;
     width: 600px;
     background-color: rgba(255,255,255,0.2);
     border-bottom: 10px solid rgba(0,0,0,0.1);
@@ -18,15 +18,48 @@ div
 
 h1
 {
+    margin: 0;
     font-size: 36px;
     font-weight: normal;
     letter-spacing: -1px;
 }
 
-.clock
+#clock
 {
-    margin: 0;
+    margin: 20px 0;
     font-size: 96px;
     font-weight: bold;
     letter-spacing: -1px;
+}
+
+#forecastIcon
+{
+    margin: 20px 0;
+}
+
+/***** TEMPERATURE COLORS *****/
+
+.cold
+{
+    background-color: #95a5a6;
+}
+
+.chilly
+{
+    background-color: #1abc9c;
+}
+
+.nice
+{
+    background-color: #2980b9;
+}
+
+.warm
+{
+    background-color: #e67e22;
+}
+
+.hot
+{
+    background-color: #e74c3c;
 }
