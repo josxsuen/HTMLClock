@@ -2,7 +2,7 @@ body
 {
     margin: 0;
     padding: 100px 0;
-    background-color: #2fb5c6;
+    background-color: #95a5a6;
     color: #fff;
     font-family: sans-serif;
     text-align: center;
@@ -29,6 +29,11 @@ h1
     font-size: 96px;
     font-weight: bold;
     letter-spacing: -1px;
+}
+
+#forecastLocation
+{
+    font-size: 0.8em;
 }
 
 #forecastIcon
