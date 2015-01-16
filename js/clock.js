@@ -6,8 +6,6 @@ var colorMin = {
     cold    : -Infinity
 };
 
-var cslCoords = "35.300399,-120.662362";
-
 function getTime()
 {
     var d = new Date();
@@ -54,5 +52,4 @@ function getTemp()
     else {
         alert("Geolocation is not supported.");
     }
-    // getTempAt(cslCoords);
 }
