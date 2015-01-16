@@ -46,13 +46,13 @@ function getTempAt(location)
 
 function getTemp()
 {
-    // if (navigator.geolocation) {
-    //     navigator.geolocation.getCurrentPosition(function(position) {
-    //         getTempAt(position.coords.latitude + "," + position.coords.longitude);
-    //     });
-    // }
-    // else {
-    //     alert("Geolocation is not supported.");
-    // }
-    getTempAt(cslCoords);
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            getTempAt(position.coords.latitude + "," + position.coords.longitude);
+        });
+    }
+    else {
+        alert("Geolocation is not supported.");
+    }
+    // getTempAt(cslCoords);
 }
