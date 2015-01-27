@@ -92,12 +92,34 @@ function hideAlarmPopup()
     $("#mask, #popup").addClass("hide");
 }
 
-function insertAlarm(time, alarmName)
+function removeAlarm(object, alarm)
 {
-    var newAlarm = $("<div>").addClass("flexable");
+    object.destroy({
+        success: function(object) {
+            alarm.remove();
+            checkNoAlarms();
+        }
+    });
+}
 
-    newAlarm.append($("<div>").addClass("name").html(alarmName));
-    newAlarm.append($("<div>").addClass("time").html(time));
+function insertAlarm(object)
+{
+    var newAlarm = $("<div>").addClass("flexable alarm");
+    var text = $("<div>");
+
+    text.append($("<div>").addClass("time").html(object.get('time')));
+    text.append($("<div>").addClass("name").html(object.get('alarmName')));
+
+    var removeButton = $("<input>").addClass("button");
+
+    removeButton.attr("type", "button");
+    removeButton.val("Remove");
+    removeButton.click(function() {
+        removeAlarm(object, newAlarm);
+    });
+
+    newAlarm.append(text);
+    newAlarm.append(removeButton);
 
     $("#alarms").append(newAlarm);
 
@@ -120,7 +142,7 @@ function addAlarm()
         "alarmName" : alarmName
     }, {
         success: function(object) {
-            insertAlarm(time, alarmName);
+            insertAlarm(object);
             checkNoAlarms();
             hideAlarmPopup();
         }
@@ -129,20 +151,21 @@ function addAlarm()
 
 function getAllAlarms()
 {
-    Parse.initialize("bI3vLxElIBBHN4KSEq0SFVk2fWZi3ZOYgGSf0hQk",
-        "fFzh4GOb6fQKHHrsLsgHFdFO2Apj1zIWaSJQVA41");
+    Parse.initialize(
+        "bI3vLxElIBBHN4KSEq0SFVk2fWZi3ZOYgGSf0hQk",
+        "fFzh4GOb6fQKHHrsLsgHFdFO2Apj1zIWaSJQVA41"
+        );
 
     var AlarmObject = Parse.Object.extend("Alarm");
     var query = new Parse.Query(AlarmObject);
     query.find({
         success: function(results) {
             for (var i=0; i<results.length; i++) {
-                var object = results[i];
-                insertAlarm(object.get('time'), object.get('alarmName'));
+                insertAlarm(results[i]);
             }
             checkNoAlarms();
         }
-    })
+    });
 }
 
 function checkNoAlarms()
