@@ -8,6 +8,17 @@ var colorMin = {
     cold    : -Infinity
 };
 
+function pad(num, width)
+{
+    var num = num.toString();
+    while (num.length < width) {
+        num = "0" + num;
+    }
+    return num;
+}
+
+/***** CLOCK *****/
+
 function getTime()
 {
     var d = new Date();
@@ -16,6 +27,8 @@ function getTime()
 
     setTimeout(getTime, 1000);
 }
+
+/***** WEATHER *****/
 
 function getTempColor(tempMax)
 {
@@ -56,14 +69,7 @@ function getTemp()
     }
 }
 
-function pad(num, width)
-{
-    var num = num.toString();
-    while (num.length < width) {
-        num = "0" + num;
-    }
-    return num;
-}
+/***** ALARM *****/
 
 function initTimeContainer()
 {
@@ -94,6 +100,8 @@ function insertAlarm(time, alarmName)
     newAlarm.append($("<div>").addClass("time").html(time));
 
     $("#alarms").append(newAlarm);
+
+    numAlarms++;
 }
 
 function addAlarm()
@@ -113,6 +121,7 @@ function addAlarm()
     }, {
         success: function(object) {
             insertAlarm(time, alarmName);
+            checkNoAlarms();
             hideAlarmPopup();
         }
     });
@@ -131,7 +140,6 @@ function getAllAlarms()
                 var object = results[i];
                 insertAlarm(object.get('time'), object.get('alarmName'));
             }
-            numAlarms = results.length;
             checkNoAlarms();
         }
     })
@@ -140,7 +148,10 @@ function getAllAlarms()
 function checkNoAlarms()
 {
     if (numAlarms === 0) {
-        $("#alarms").html("No Alarms Set");
+        $("#noAlarms").removeClass("hide");
+    }
+    else {
+        $("#noAlarms").addClass("hide");
     }
 }
 
