@@ -31,6 +31,8 @@ h1
     letter-spacing: -1px;
 }
 
+/***** WEATHER *****/
+
 #forecastLocation
 {
     font-size: 0.8em;
@@ -66,4 +68,16 @@ h1
 .hot
 {
     background-color: #e74c3c;
+}
+
+/***** ALARM *****/
+
+.name
+{
+    font-weight: bold;
+}
+
+.time
+{
+    margin: 0 10px;
 }

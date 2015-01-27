@@ -3,10 +3,11 @@
 
     <head>
         <title>The Josephine Clock</title>
-        <link href="css/clock.css" rel="stylesheet" type="text/css" />
+        <link href="css/clock.css" rel="stylesheet" type="text/css">
+        <link href="css/alarm.css" rel="stylesheet" type="text/css">
     </head>
 
-    <body onload="getTime(); getTemp();">
+    <body onload="initTimeContainer(); getTime(); getTemp();">
 
         <div class="box">
 
@@ -18,7 +19,34 @@
             <div id="forecastLocation"></div>
             <img id="forecastIcon" alt="" />
 
-            <div>No Alarms Set</div>
+            <div id="alarmContainer">
+                <div id="alarmHeader" class="flexable">
+                    <h2>Alarms</h2>
+                    <input type="button" class="button" value="Add Alarm" onclick="showAlarmPopup();">
+                </div>
+                <div id="alarms"></div>
+            </div>
+
+            <div id="mask" class="hide"></div>
+
+            <div id="popup" class="hide">
+                <h1>Add Alarm</h1>
+                <div id="timeContainer">
+                    <select id="hours">
+                    </select>
+                    <select id="mins">
+                    </select>
+                    <select id="ampm">
+                        <option>am</option>
+                        <option>pm</option>
+                    </select>
+                </div>
+                <input type="text" id="alarmName" placeholder="Alarm Name">
+                <div class="flexable">
+                    <input type="button" class="button" value="Cancel" onclick="hideAlarmPopup();">
+                    <input type="button" class="button" value="Save Alarm" onclick="addAlarm();">
+                </div>
+            </div>
 
         </div>
 
