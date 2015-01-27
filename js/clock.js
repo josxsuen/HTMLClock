@@ -1,3 +1,5 @@
+var numAlarms = 0;
+
 var colorMin = {
     hot     : 90,
     warm    : 80,
@@ -129,8 +131,17 @@ function getAllAlarms()
                 var object = results[i];
                 insertAlarm(object.get('time'), object.get('alarmName'));
             }
+            numAlarms = results.length;
+            checkNoAlarms();
         }
     })
+}
+
+function checkNoAlarms()
+{
+    if (numAlarms === 0) {
+        $("#alarms").html("No Alarms Set");
+    }
 }
 
 $(document).ready(function() {
