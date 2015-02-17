@@ -3,11 +3,11 @@ h2 {
 	margin-top:0px;
 }
 .hide {
-	display:none;
+	display:none !important;
 }
 .button {
-	display:block;
-	margin:0 0 10px 0;
+	display: inline;
+	margin:0;
 	width:100px;
 	padding:10px 10px;
 }
@@ -32,13 +32,11 @@ h2 {
 	position:relative;
 	border-bottom:1px solid #ccc;
 }
-#alarmHeader h2 {
-	justify-content:flex-end;
+#alarmHeader > span {
+	align-items: flex-start;
 }
-#alarmHeader input {
-	position:absolute;
-	right:0px;
-	margin:0;
+#alarmHeader > span > * {
+	margin-left: 5px;
 }
 #alarms {
 	margin-top:20px;
