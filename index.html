@@ -5,6 +5,7 @@
         <title>The Josephine Clock</title>
         <link href="css/clock.css" rel="stylesheet" type="text/css">
         <link href="css/alarm.css" rel="stylesheet" type="text/css">
+        <script src="https://apis.google.com/js/client:platform.js" async defer></script>
     </head>
 
     <body>
@@ -24,6 +25,16 @@
                     <h2>Alarms</h2>
                     <input type="button" class="button" value="Add Alarm" onclick="showAlarmPopup();">
                 </div>
+                <span id="signinButton">
+                    <span
+                        class="g-signin"
+                        data-callback="signinCallback"
+                        data-clientid="175054779113-7kq231gnlc5671dfqc1m2smav7dbfhad.apps.googleusercontent.com"
+                        data-cookiepolicy="single_host_origin"
+                        data-requestvisibleactions="http://schema.org/AddAction"
+                        data-scope="https://www.googleapis.com/auth/plus.login">
+                    </span>
+                </span>
                 <div id="alarms">
                     <div id="noAlarms" class="hide">No Alarms Set</div>
                 </div>
