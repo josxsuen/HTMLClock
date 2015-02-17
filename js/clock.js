@@ -192,7 +192,6 @@ $(document).ready(function() {
     getTime();
     getTemp();
     initTimeContainer();
-    $("#addAlarm").hide();
 });
 
 /***** AUTHENTICATION *****/
@@ -201,17 +200,26 @@ function signinCallback(authResult) {
   if (authResult['status']['signed_in']) {
     gapi.client.load('plus','v1').then(function() {
 
-        $('#signinButton').hide(); // hide sign-in button
+        $('#signinButton').addClass("hide"); // hide sign-in button
+        $('#signoutButton').removeClass("hide"); // display sign-out button
 
         gapi.client.plus.people.get({
             'userId' : 'me'
         }).then(function(res) {
             getAllAlarms(res.result.id); // display alarms for user
-            $("#addAlarm").show();
+            $("#addAlarm").addClass("hide");
         });
 
     });
-  } else {
+  }
+  else if (authResult['error']['user_signed_out']) {
+    $('#signinButton').removeClass("hide"); // display sign-in button
+    $('#signoutButton').addClass("hide"); // hide sign-out button
+
+    $("#alarms").find(":not(#noAlarms)").remove(); // clear any alarms
+    $("#noAlarms").addClass("hide");
+  }
+  else {
     // Update the app to reflect a signed out user
     // Possible error values:
     //   "user_signed_out" - User is signed-out
