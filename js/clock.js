@@ -196,6 +196,10 @@ $(document).ready(function() {
 
 /***** AUTHENTICATION *****/
 
+function signout() {
+    gapi.auth.signOut();
+}
+
 function signinCallback(authResult) {
   if (authResult['status']['signed_in']) {
     gapi.client.load('plus','v1').then(function() {
@@ -207,12 +211,12 @@ function signinCallback(authResult) {
             'userId' : 'me'
         }).then(function(res) {
             getAllAlarms(res.result.id); // display alarms for user
-            $("#addAlarm").addClass("hide");
+            $("#addAlarm").removeClass("hide");
         });
 
     });
   }
-  else if (authResult['error']['user_signed_out']) {
+  else if (authResult['error'] === 'user_signed_out') {
     $('#signinButton').removeClass("hide"); // display sign-in button
     $('#signoutButton').addClass("hide"); // hide sign-out button
 
