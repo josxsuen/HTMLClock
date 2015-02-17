@@ -143,7 +143,7 @@ function addAlarm()
     }).then(function(res) {
         alarmObject.save({
             "time"      : time,
-            "ampm"      : apmpm,
+            "ampm"      : ampm,
             "alarmName" : alarmName,
             "userid"    : res.result.id
         }, {
@@ -192,6 +192,7 @@ $(document).ready(function() {
     getTime();
     getTemp();
     initTimeContainer();
+    $("#addAlarm").hide();
 });
 
 /***** AUTHENTICATION *****/
@@ -206,6 +207,7 @@ function signinCallback(authResult) {
             'userId' : 'me'
         }).then(function(res) {
             getAllAlarms(res.result.id); // display alarms for user
+            $("#addAlarm").show();
         });
 
     });
