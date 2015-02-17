@@ -77,7 +77,7 @@ function initTimeContainer()
         $("#hours").append("<option>" + pad(h, 2) + "</option>");
     }
 
-    for (var m=0; m<60; m++) {
+    for (var m=0; m<60; m+=5) {
         $("#mins").append("<option>" + pad(m, 2) + "</option>");
     }
 }
@@ -107,7 +107,7 @@ function insertAlarm(object)
     var newAlarm = $("<div>").addClass("flexable alarm");
     var text = $("<div>");
 
-    text.append($("<div>").addClass("time").html(object.get('time')));
+    text.append($("<div>").addClass("time").html(object.get('time') + " " + object.get('ampm')));
     text.append($("<div>").addClass("name").html(object.get('alarmName')));
 
     var removeButton = $("<input>").addClass("button");
@@ -132,13 +132,14 @@ function addAlarm()
     var mins = $("#mins option:selected").text();
     var ampm = $("#ampm option:selected").text();
 
-    var time = hours + ":" + mins + " " + ampm;
+    var time = hours + ":" + mins;
     var alarmName = $("#alarmName").val();
 
     var AlarmObject = Parse.Object.extend("Alarm");
     var alarmObject = new AlarmObject();
     alarmObject.save({
         "time"      : time,
+        "ampm"      : apmpm,
         "alarmName" : alarmName
     }, {
         success: function(object) {
@@ -149,7 +150,7 @@ function addAlarm()
     });
 }
 
-function getAllAlarms()
+function getAllAlarms(userid)
 {
     Parse.initialize(
         "bI3vLxElIBBHN4KSEq0SFVk2fWZi3ZOYgGSf0hQk",
@@ -158,6 +159,9 @@ function getAllAlarms()
 
     var AlarmObject = Parse.Object.extend("Alarm");
     var query = new Parse.Query(AlarmObject);
+    // query.equalTo("userid", userid);
+    query.ascending("ampm");
+    query.ascending("time");
     query.find({
         success: function(results) {
             for (var i=0; i<results.length; i++) {
@@ -182,7 +186,6 @@ $(document).ready(function() {
     getTime();
     getTemp();
     initTimeContainer();
-    getAllAlarms();
 });
 
 /***** AUTHENTICATION *****/
@@ -192,6 +195,8 @@ function signinCallback(authResult) {
     // Update the app to reflect a signed in user
     // Hide the sign-in button now that the user is authorized, for example:
     document.getElementById('signinButton').setAttribute('style', 'display: none');
+    // getAllAlarms(authResult['access_token']['userid']);
+    console.log(authResult);
   } else {
     // Update the app to reflect a signed out user
     // Possible error values:
