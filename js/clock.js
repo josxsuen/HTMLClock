@@ -137,16 +137,22 @@ function addAlarm()
 
     var AlarmObject = Parse.Object.extend("Alarm");
     var alarmObject = new AlarmObject();
-    alarmObject.save({
-        "time"      : time,
-        "ampm"      : apmpm,
-        "alarmName" : alarmName
-    }, {
-        success: function(object) {
-            insertAlarm(object);
-            checkNoAlarms();
-            hideAlarmPopup();
-        }
+
+    gapi.client.plus.people.get({
+        'userId' : 'me'
+    }).then(function(res) {
+        alarmObject.save({
+            "time"      : time,
+            "ampm"      : apmpm,
+            "alarmName" : alarmName,
+            "userid"    : res.result.id
+        }, {
+            success: function(object) {
+                insertAlarm(object);
+                checkNoAlarms();
+                hideAlarmPopup();
+            }
+        });
     });
 }
 
@@ -159,7 +165,7 @@ function getAllAlarms(userid)
 
     var AlarmObject = Parse.Object.extend("Alarm");
     var query = new Parse.Query(AlarmObject);
-    // query.equalTo("userid", userid);
+    query.equalTo("userid", userid);
     query.ascending("ampm");
     query.ascending("time");
     query.find({
@@ -198,10 +204,8 @@ function signinCallback(authResult) {
 
         gapi.client.plus.people.get({
             'userId' : 'me'
-        }).then(function(response) {
-            console.log(response);
-            console.log(response.id);
-            getAllAlarms(response.id); // display alarms for user
+        }).then(function(res) {
+            getAllAlarms(res.result.id); // display alarms for user
         });
 
     });
