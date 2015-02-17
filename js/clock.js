@@ -192,18 +192,19 @@ $(document).ready(function() {
 
 function signinCallback(authResult) {
   if (authResult['status']['signed_in']) {
-    // Update the app to reflect a signed in user
-    // Hide the sign-in button now that the user is authorized, for example:
-    document.getElementById('signinButton').setAttribute('style', 'display: none');
-    // getAllAlarms(authResult['access_token']['userid']);
-    var request = gapi.client.plus.people.get({
-        'userId' : 'me'
+    gapi.client.load('plus','v1').then(function() {
+
+        $('#signinButton').hide(); // hide sign-in button
+
+        gapi.client.plus.people.get({
+            'userId' : 'me'
+        }).then(function(response) {
+            console.log(response);
+            console.log(response.id);
+            getAllAlarms(response.id); // display alarms for user
+        });
+
     });
-    request.execute(function(response) {
-        console.log(response);
-        console.log(response.id);
-        getAllAlarms(response.id);
-    })
   } else {
     // Update the app to reflect a signed out user
     // Possible error values:
