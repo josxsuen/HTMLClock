@@ -139,7 +139,7 @@ function addAlarm()
     var alarmObject = new AlarmObject();
 
     gapi.client.plus.people.get({
-        'userId' : 'me'
+        userId: 'me'
     }).then(function(res) {
         alarmObject.save({
             "time"      : time,
@@ -198,8 +198,8 @@ $(document).ready(function() {
 
 function signin(userid) {
     console.log("signed in: " + userid);
-    $('#signinButton').addClass("hide");
-    $("#signoutButton", "#addAlarm").removeClass("hide");
+    $("#signoutButton, #addAlarm").removeClass("hide");
+    $("#signinButton").addClass("hide");
 
     getAllAlarms(userid); // display alarms for user
 }
@@ -207,7 +207,7 @@ function signin(userid) {
 function signout() {
     console.log("signed out");
     $("#signinButton").removeClass("hide");
-    $("#signoutButton", "#addAlarm", "#noAlarms").addClass("hide");
+    $("#signoutButton, #addAlarm, #noAlarms").addClass("hide");
 
     $("#alarms").find(":not(#noAlarms)").remove(); // clear any alarms
 }
@@ -215,13 +215,11 @@ function signout() {
 function signinCallback(authResult) {
     if (authResult['status']['signed_in']) {
         gapi.client.load('plus','v1').then(function() {
-
             gapi.client.plus.people.get({
-                'userId' : 'me'
+                userId: 'me'
             }).then(function(res) {
                 signin(res.result.id);
             });
-
         });
     }
     else if (authResult['error'] === 'user_signed_out') {
