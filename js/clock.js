@@ -201,31 +201,22 @@ $(document).ready(function() {
 
 /***** AUTHENTICATION *****/
 
-function signin(userid) {
-    console.log("signed in: " + userid);
-    $("#signoutButton, #addAlarm").removeClass("hide");
-    $("#signinButton").addClass("hide");
-
-    getAllAlarms(userid); // display alarms for user
-}
-
-function signout() {
-    console.log("signed out");
-    $("#signinButton").removeClass("hide");
-    $("#signoutButton, #addAlarm, #noAlarms").addClass("hide");
-
-    $("#alarms").find(":not(#noAlarms)").remove(); // clear any alarms
-}
-
 function signinCallback(authResult) {
     if (authResult.status.signed_in) {
         gapi.client.load('plus','v1').then(function() {
             gapi.client.plus.people.get({
                 'userId': 'me'
             }).then(function(res) {
-                signin(res.result.id);
+                console.log("userid: " + res.result.id);
+
+                $("#signoutButton, #addAlarm").removeClass("hide");
+                $("#signinButton").addClass("hide");
+                getAllAlarms(res.result.id); // display alarms for user
             });
         });
+    }
+    else if (authResult.error === "immediate_failed") {
+        $("#signoutButton").removeClass("hide");
     }
     else {
         // Update the app to reflect a signed out user
@@ -234,6 +225,10 @@ function signinCallback(authResult) {
         //   "access_denied" - User denied access to your app
         //   "immediate_failed" - Could not automatically log in the user
         console.log('Sign-in state: ' + authResult.error);
-        signout();
+
+        $("#signinButton").removeClass("hide");
+        $("#signoutButton, #addAlarm, #noAlarms").addClass("hide");
+
+        $("#alarms").find(":not(#noAlarms)").remove(); // clear any alarms
     }
 }
