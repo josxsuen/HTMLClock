@@ -192,6 +192,8 @@ $(document).ready(function() {
     getTime();
     getTemp();
     initTimeContainer();
+
+    $("#signoutButton").click(gapi.auth.signOut);
 });
 
 /***** AUTHENTICATION *****/
