@@ -139,7 +139,7 @@ function addAlarm()
     var alarmObject = new AlarmObject();
 
     gapi.client.plus.people.get({
-        userId: 'me'
+        'userId': 'me'
     }).then(function(res) {
         alarmObject.save({
             "time"      : time,
@@ -216,7 +216,7 @@ function signinCallback(authResult) {
     if (authResult['status']['signed_in']) {
         gapi.client.load('plus','v1').then(function() {
             gapi.client.plus.people.get({
-                userId: 'me'
+                'userId': 'me'
             }).then(function(res) {
                 signin(res.result.id);
             });
