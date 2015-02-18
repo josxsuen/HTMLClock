@@ -216,7 +216,7 @@ function signinCallback(authResult) {
         });
     }
     else if (authResult.error === "immediate_failed") {
-        $("#signoutButton").removeClass("hide");
+        $("#signinButton").removeClass("hide");
     }
     else {
         // Update the app to reflect a signed out user
