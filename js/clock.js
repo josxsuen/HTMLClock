@@ -198,7 +198,7 @@ $(document).ready(function() {
 
 function signin(userid) {
     console.log("signed in: " + userid);
-    $('#signinButton').hide();
+    $('#signinButton').addClass("hide");
     $("#signoutButton", "#addAlarm").removeClass("hide");
 
     getAllAlarms(userid); // display alarms for user
@@ -206,8 +206,8 @@ function signin(userid) {
 
 function signout() {
     console.log("signed out");
-    $("#signoutButton").removeClass("hide");
-    $("#signinButton", "#addAlarm", "#noAlarms").addClass("hide");
+    $("#signinButton").removeClass("hide");
+    $("#signoutButton", "#addAlarm", "#noAlarms").addClass("hide");
 
     $("#alarms").find(":not(#noAlarms)").remove(); // clear any alarms
 }
