@@ -196,39 +196,41 @@ $(document).ready(function() {
 
 /***** AUTHENTICATION *****/
 
+function signin(userid) {
+    $('#signinButton').hide();
+    $("#signoutButton", "#addAlarm").removeClass("hide");
+
+    getAllAlarms(res.result.id); // display alarms for user
+}
+
 function signout() {
-    gapi.auth.signOut();
+    $("#signoutButton").removeClass("hide");
+    $("#signinButton", "#addAlarm", "#noAlarms").addClass("hide");
+
+    $("#alarms").find(":not(#noAlarms)").remove(); // clear any alarms
 }
 
 function signinCallback(authResult) {
-  if (authResult['status']['signed_in']) {
-    gapi.client.load('plus','v1').then(function() {
+    if (authResult['status']['signed_in']) {
+        gapi.client.load('plus','v1').then(function() {
 
-        $('#signinButton').addClass("hide"); // hide sign-in button
-        $('#signoutButton').removeClass("hide"); // display sign-out button
+            gapi.client.plus.people.get({
+                'userId' : 'me'
+            }).then(function(res) {
+                signin(res.result.id);
+            });
 
-        gapi.client.plus.people.get({
-            'userId' : 'me'
-        }).then(function(res) {
-            getAllAlarms(res.result.id); // display alarms for user
-            $("#addAlarm").removeClass("hide");
         });
-
-    });
-  }
-  else if (authResult['error'] === 'user_signed_out') {
-    $('#signinButton').removeClass("hide"); // display sign-in button
-    $('#signoutButton').addClass("hide"); // hide sign-out button
-
-    $("#alarms").find(":not(#noAlarms)").remove(); // clear any alarms
-    $("#noAlarms").addClass("hide");
-  }
-  else {
-    // Update the app to reflect a signed out user
-    // Possible error values:
-    //   "user_signed_out" - User is signed-out
-    //   "access_denied" - User denied access to your app
-    //   "immediate_failed" - Could not automatically log in the user
-    console.log('Sign-in state: ' + authResult['error']);
-  }
+    }
+    else if (authResult['error'] === 'user_signed_out') {
+        signout();
+    }
+    else {
+        // Update the app to reflect a signed out user
+        // Possible error values:
+        //   "user_signed_out" - User is signed-out
+        //   "access_denied" - User denied access to your app
+        //   "immediate_failed" - Could not automatically log in the user
+        console.log('Sign-in state: ' + authResult['error']);
+    }
 }
