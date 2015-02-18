@@ -193,7 +193,10 @@ $(document).ready(function() {
     getTemp();
     initTimeContainer();
 
-    $("#signoutButton").click(gapi.auth.signOut);
+    $("#signoutButton").click(function() {
+        console.log("#signoutButton clicked");
+        gapi.auth.signOut();
+    });
 });
 
 /***** AUTHENTICATION *****/
