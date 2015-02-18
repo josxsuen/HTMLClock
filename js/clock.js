@@ -197,13 +197,15 @@ $(document).ready(function() {
 /***** AUTHENTICATION *****/
 
 function signin(userid) {
+    console.log("signed in: " + userid);
     $('#signinButton').hide();
     $("#signoutButton", "#addAlarm").removeClass("hide");
 
-    getAllAlarms(res.result.id); // display alarms for user
+    getAllAlarms(userid); // display alarms for user
 }
 
 function signout() {
+    console.log("signed out");
     $("#signoutButton").removeClass("hide");
     $("#signinButton", "#addAlarm", "#noAlarms").addClass("hide");
 

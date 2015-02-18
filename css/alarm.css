@@ -6,7 +6,7 @@ h2 {
 	display:none !important;
 }
 .button {
-	display: inline;
+	/*display: inline;*/
 	margin:0;
 	width:100px;
 	padding:10px 10px;
