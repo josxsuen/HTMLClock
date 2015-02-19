@@ -207,10 +207,14 @@ function signinCallback(authResult) {
             gapi.client.plus.people.get({
                 'userId': 'me'
             }).then(function(res) {
-                console.log("userid: " + res.result.id);
+                console.log("id: " + res.result.id);
+                console.log("displayName: " + res.result.displayName);
+
+                $("h1").html(res.result.displayName + "'s Clock");
 
                 $("#signoutButton, #addAlarm").removeClass("hide");
                 $("#signinButton").addClass("hide");
+
                 getAllAlarms(res.result.id); // display alarms for user
             });
         });
@@ -225,6 +229,8 @@ function signinCallback(authResult) {
         //   "access_denied" - User denied access to your app
         //   "immediate_failed" - Could not automatically log in the user
         console.log('Sign-in state: ' + authResult.error);
+
+        $("h1").html("My Clock");
 
         $("#signinButton").removeClass("hide");
         $("#signoutButton, #addAlarm, #noAlarms").addClass("hide");
