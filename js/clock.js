@@ -17,6 +17,12 @@ function pad(num, width)
     return num;
 }
 
+function setTitle(title)
+{
+    document.title = title;
+    $("#title").html(title);
+}
+
 /***** CLOCK *****/
 
 function getTime()
@@ -210,7 +216,7 @@ function signinCallback(authResult) {
                 console.log("id: " + res.result.id);
                 console.log("displayName: " + res.result.displayName);
 
-                $("h1").html(res.result.displayName + "'s Clock");
+                setTitle(res.result.displayName + "'s Clock");
 
                 $("#signoutButton, #addAlarm").removeClass("hide");
                 $("#signinButton").addClass("hide");
@@ -230,7 +236,7 @@ function signinCallback(authResult) {
         //   "immediate_failed" - Could not automatically log in the user
         console.log('Sign-in state: ' + authResult.error);
 
-        $("h1").html("My Clock");
+        setTitle("My Clock");
 
         $("#signinButton").removeClass("hide");
         $("#signoutButton, #addAlarm, #noAlarms").addClass("hide");
