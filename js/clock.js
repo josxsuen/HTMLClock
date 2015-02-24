@@ -104,6 +104,7 @@ function removeAlarm(object, alarm)
         success: function(object) {
             alarm.remove();
             checkNoAlarms();
+            _gaq.push(['_trackEvent', 'Alarm', 'Delete']);
         }
     });
 }
@@ -157,6 +158,7 @@ function addAlarm()
                 insertAlarm(object);
                 checkNoAlarms();
                 hideAlarmPopup();
+                _gaq.push(['_trackEvent', 'Alarm', 'Add']);
             }
         });
     });
