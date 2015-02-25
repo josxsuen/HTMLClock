@@ -228,6 +228,7 @@ function signinCallback(authResult) {
         });
     }
     else if (authResult.error === "immediate_failed") {
+        $("#signoutButton, #addAlarm").addClass("hide");
         $("#signinButton").removeClass("hide");
     }
     else {
