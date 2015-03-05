@@ -20,7 +20,6 @@
             type              : 'token',
             callback_function : function() {
                 console.log('callback_function');
-
                 $.ajax({
                     url: 'https://api.imgur.com/3/account/me',
                     type: 'GET',
@@ -31,6 +30,8 @@
                         alert(response['data']['url']);
                     },
                     beforeSend: function(xhr) {
+                        console.log('beforeSend');
+                        console.log(localStorage['access_token']);
                         xhr.setRequestHeader('Authorization: Bearer', localStorage['access_token']);
                     }
                 });
