@@ -19,12 +19,14 @@
             client_id         : '8c345d266bd5718',
             type              : 'token',
             callback_function : function() {
+                console.log('callback_function');
+
                 $.ajax({
                     url: 'https://api.imgur.com/3/account/me',
                     type: 'GET',
                     dataType: 'json',
                     success: function(response) {
-                        console.log('callback_function');
+                        console.log('response');
                         console.log(response);
                         alert(response['data']['url']);
                     },
