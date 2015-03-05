@@ -29,6 +29,10 @@
                         console.log(response);
                         alert(response['data']['url']);
                     },
+                    error: function(xhr, status, error) {
+                        console.log(status);
+                        console.log(error);
+                    },
                     beforeSend: function(xhr) {
                         console.log('beforeSend');
                         console.log(localStorage['access_token']);
