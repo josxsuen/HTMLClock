@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Lab 9: Client Library</title>
+</head>
+
+<body>
+
+    <button onclick="login();">Imgur</button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="oauth.js"></script>
+
+    <script>
+
+    $(function() {
+        init({
+            client_id         : '8c345d266bd5718',
+            type              : 'token',
+            callback_function : function() {
+                $.ajax({
+                    url: 'https://api.imgur.com/3/account/me',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        alert(response['data']['url']);
+                    },
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('Authorization: Bearer', localStorage['access_token']);
+                    }
+                });
+            }
+        });
+    });
+
+    </script>
+
+</body>
+
+</html>
