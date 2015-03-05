@@ -24,6 +24,7 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(response) {
+                        console.log(response);
                         alert(response['data']['url']);
                     },
                     beforeSend: function(xhr) {
